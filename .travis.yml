@@ -35,10 +35,10 @@ install:
 
   - ./configure --help
   - ./configure --prefix="/usr/local" FCFLAGS="-g -O2 -ffree-line-length-none" --with-mpi-prefix="/usr" --enable-mpi-io="yes"
-        --with-netcdf-incs="-I/usr/include" --with-netcdf-libs="-L/usr/lib64 -lnetcdf -lnetcdff"
-        --with-linalg-flavor="atlas" --with-linalg-libs="-L/usr/lib64 -llapack -lf77blas -lcblas -latlas"
+        --with-netcdf-incs="-I/usr/include" --with-netcdf-libs="-L/usr/lib -lnetcdf -lnetcdff"
+        --with-linalg-flavor="atlas" --with-linalg-libs="-L/usr/lib -llapack -lf77blas -lcblas -latlas"
         --with-dft-flavor="atompaw+libxc+wannier90" --enable-gw-dpc="yes"
-        --with-fft-flavor="fftw3" --with-fft-incs="-I/usr/include/" --with-fft-libs="-L/usr/lib64 -lfftw3"
+        --with-fft-flavor="fftw3" --with-fft-incs="-I/usr/include/" --with-fft-libs="-L/usr/lib -lfftw3 -lfftw3f"
 
   - make -j4
   - make check
