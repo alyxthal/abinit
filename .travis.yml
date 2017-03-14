@@ -4,25 +4,23 @@ os:
 
 language: c
 
-#python: # We don't actually use the Travis Python, but this keeps it organized.
-  #- "2.7"
-  #- "3.4"
-  #- "3.5"
-  #- "3.6"
-
 sudo: required
 
 install:
 
   # Install requirements. Taken from yoda's post http://forum.abinit.org/viewtopic.php?f=2&t=1391
   #- sudo apt-get update
-  - sudo apt-get -y install gcc g++ gfortran
+  - sudo apt-get -y install gcc gfortran g++
   - sudo apt-get -y install patch
-  - sudo apt-get -y install libnetcdf-dev
-  - sudo apt-get -y install fftw3 libfftw3-single3 libfftw3-dev
+  # blas/lapack
   - sudo apt-get -y install libatlas-base-dev libatlas3gf-base
   - sudo apt-get -y install liblapack3gf liblapack-dev
   - sudo apt-get -y install libblas3gf libblas-dev
+  # fftw3
+  - sudo apt-get -y install fftw3 libfftw3-single3 libfftw3-dev
+  # netcdf
+  - sudo apt-get -y install libnetcdf-dev
+  # openmpi
   - sudo apt-get -y install openmpi-bin openmpi-common libopenmpi-dev
 
   - ./config/scripts/makemake 
