@@ -16,7 +16,7 @@ install:
   #- if [[ "$TRAVIS_OS_NAME" == "linux" ]]; then
   #     sudo apt-get install liblapack-dev libblas-dev;
   #  fi
-  #- sudo apt-get update
+  - sudo apt-get update
   - sudo apt-get -y install gcc gfortran g++
   - sudo apt-get -y install patch
   # blas/lapack
