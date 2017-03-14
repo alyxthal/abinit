@@ -35,6 +35,7 @@ install:
 
   - ./configure --help
   - ./configure --prefix="/usr/local" FCFLAGS="-g -O2 -ffree-line-length-none" --with-mpi-prefix="/usr" --enable-mpi-io="yes"
+        --with-trio-flavor=“netcdf" 
         --with-netcdf-incs="-I/usr/include" --with-netcdf-libs="-L/usr/lib -lnetcdf -lnetcdff"
         --with-linalg-flavor="atlas" --with-linalg-libs="-L/usr/lib -llapack -lf77blas -lcblas -latlas"
         --with-dft-flavor="atompaw+libxc+wannier90" --enable-gw-dpc="yes"
