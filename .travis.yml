@@ -23,8 +23,9 @@ install:
   - sudo apt-get -y install libatlas-base-dev libatlas3gf-base
   - sudo apt-get -y install liblapack3gf liblapack-dev
   - sudo apt-get -y install libblas3gf libblas-dev
-  # fftw3 (ubuntu version on travis does not provide single precision version (required by Abinit)
-  #- sudo apt-get -y install fftw3 libfftw3-single3 libfftw3-dev
+  # fftw3 (Abinit requires single precision version as well)
+  - sudo apt-get -y install libfftw3-dev
+  #- sudo apt-get -y install fftw3 libfftw3-dev libfftw3-single3 
   # netcdf
   - sudo apt-get -y install libnetcdf-dev
   # openmpi
@@ -37,14 +38,14 @@ install:
         --with-netcdf-incs="-I/usr/include" --with-netcdf-libs="-L/usr/lib64 -lnetcdf -lnetcdff"
         --with-linalg-flavor="atlas" --with-linalg-libs="-L/usr/lib64 -llapack -lf77blas -lcblas -latlas"
         --with-dft-flavor="atompaw+libxc+wannier90" --enable-gw-dpc="yes"
-        #--with-fft-flavor="fftw3" --with-fft-incs="-I/usr/include/" --with-fft-libs="-L/usr/lib64 -lfftw3"
+        --with-fft-flavor="fftw3" --with-fft-incs="-I/usr/include/" --with-fft-libs="-L/usr/lib64 -lfftw3"
 
   - make -j4
   - make check
   - sudo make install
 
 # command to run tests
-script: make check && tests/runtests.py fast v1 v2 -n2
+script: make check && tests/runtests.py v1 v2 -j2 && tests/runtests.py paral -n2
 
 branches:
   only:
