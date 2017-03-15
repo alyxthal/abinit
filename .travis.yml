@@ -5,6 +5,7 @@ os:
 language: c
 
 sudo: required
+dist: trusty
 
 install:
 
@@ -29,9 +30,10 @@ install:
   # netcdf
   #- sudo apt-get -y install libnetcdf-dev
 
-  - sudo apt-get install libhdf5-serial-dev
-  - sudo apt-get install libnetcdf-dev
-  - sudo apt-get install libnetcdf4
+  #- sudo apt-get install libhdf5-serial-dev libnetcdf-dev libnetcdf4
+
+  # netcdf4 on trusty
+  - sudo apt-get install libnetcdff5 libnetcdf-dev libhdf5-serial-dev
 
   # openmpi
   - sudo apt-get -y install openmpi-bin openmpi-common libopenmpi-dev
@@ -39,19 +41,21 @@ install:
   - ./config/scripts/makemake 
 
   - ./configure --help
-  - ./configure --prefix="/usr/local" FCFLAGS="-g -O2 -ffree-line-length-none" --with-mpi-prefix="/usr" --enable-mpi-io="yes"
+  - ./configure --prefix="/usr/local" FCFLAGS="-g -O2 -ffree-line-length-none" 
+        --enable-mpi="yes" --enable-mpi-io="yes" --with-mpi-prefix="/usr" 
         --with-trio-flavor="netcdf" 
         --with-netcdf-incs="-I/usr/include" --with-netcdf-libs="-L/usr/lib -lnetcdf -lnetcdff"
         --with-linalg-flavor="atlas" --with-linalg-libs="-L/usr/lib -llapack -lf77blas -lcblas -latlas"
-        --with-dft-flavor="atompaw+libxc+wannier90" --enable-gw-dpc="yes"
         --with-fft-flavor="fftw3" --with-fft-incs="-I/usr/include/" --with-fft-libs="-L/usr/lib -lfftw3 -lfftw3f"
+        --with-dft-flavor="atompaw-fallback+libxc-fallback+wannier90-fallback" 
+        --enable-gw-dpc="yes"
 
   - make -j4
   - make check
   - sudo make install
 
 # command to run tests
-script: make check && tests/runtests.py v1 v2 -j2 && tests/runtests.py paral -n2
+script: make check && tests/runtests.py v1 v2 -o1 -j2 && tests/runtests.py paral -o1 -n2
 
 branches:
   only:
